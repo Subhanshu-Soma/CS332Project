@@ -40,14 +40,22 @@ def scheduler():
             
             try:
                 pid, wait = current.strip().split()
-                running = f"{pid} : with burst time {wait}"
+
+                # Update running state with lock
+                with queue_lock:
+                    running = f"{pid} : with burst time {wait}"
+
                 #print(f"\n[RUNNING] Beginning Process {pid} with burst time {wait}")
-                
-                # Sleep outside the lock
+
+                # Sleep for the full duration - don't check pause during execution
                 time.sleep(int(wait))
-                
+
                 #print(f"[COMPLETED] Process {pid} finished")
-                running = ""
+
+                # Clear running state with lock
+                with queue_lock:
+                    running = ""
+
                 
             except (ValueError, IndexError) as e:
                 print(f"\n[ERROR] Invalid process format: {current} - {e}")
@@ -63,7 +71,7 @@ def shell():
     global running
     global shutdown_flag
     
-    print("\nCommands: 'top' (show queue), 'exit' (quit)")
+    print("\nCommands: 'list' (show queue), 'exit' (quit)")
     
     while True:
         try:
