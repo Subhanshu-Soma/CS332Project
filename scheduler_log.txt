@@ -1,0 +1,12 @@
+[SYSTEM] Scheduler started - Log file: scheduler_log.txt
+[SYSTEM] Connected to server at 127.0.0.1:12345
+[RUNNING] Process P1 started with burst time 3
+[COMPLETED] Process P1 finished after 3 seconds
+[RUNNING] Process P2 started with burst time 5
+[SHELL] Scheduler paused by user.
+[COMPLETED] Process P2 finished after 5 seconds
+[RUNNING] Process P3 started with burst time 2
+[SHELL] Scheduler resumed by user.
+[SHELL] Shutdown intitiated by user.
+[COMPLETED] Process P3 finished after 2 seconds
+[SYSTEM] Scheduler shutdown complete

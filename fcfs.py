@@ -135,16 +135,15 @@ def receiver(client_socket):
                 break
             
             # Handle multiple messages in one packet
-            messages = message.strip().split('\n') if '\n' in message else [message]
             with queue_lock:
-                for msg in messages:
-                    if msg:  # Skip empty messages
-                        process_queue.append(msg)
-                        if msg == "END":
-                            log_message("[RECEIVER] Received END message from server")
-                            print("\n[RECEIVER] Received END message")
-                        else:
-                            log_message(f"[RECEIVER] Received process: {msg}")
+                process_queue.append(message)
+                if message == "END":
+                    log_message("[RECEIVER] Received END message")
+                    print("\n[RECEIVER] Received END message")
+                    break
+                else:
+                    #print(f"\n[RECEIVED] Added to queue: {msg}")
+                    pass
             
         except ConnectionResetError:
             print("\n[RECEIVER] Connection was reset by the server.")
