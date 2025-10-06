@@ -121,18 +121,15 @@ def receiver(client_socket):
                 shutdown_flag.set()
                 break
             
-            # Handle multiple messages in one packet
-            messages = message.strip().split('\n') if '\n' in message else [message]
             
             with queue_lock:
-                for msg in messages:
-                    if msg:  # Skip empty messages
-                        process_queue.append(msg)
-                        if msg == "END":
-                            print("\n[RECEIVER] Received END message")
-                        else:
-                            #print(f"\n[RECEIVED] Added to queue: {msg}")
-                            pass
+                process_queue.append(message)
+                if message == "END":
+                    print("\n[RECEIVER] Received END message")
+                    break
+                else:
+                    #print(f"\n[RECEIVED] Added to queue: {msg}")
+                    pass
             
         except ConnectionResetError:
             print("\n[RECEIVER] Connection was reset by the server.")
