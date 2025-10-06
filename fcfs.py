@@ -142,6 +142,7 @@ def receiver(client_socket):
                     print("\n[RECEIVER] Received END message")
                     break
                 else:
+                    log_message("[RECEIVER] Added to queue: {msg}")
                     #print(f"\n[RECEIVED] Added to queue: {msg}")
                     pass
             
