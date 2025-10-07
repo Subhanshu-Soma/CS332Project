@@ -15,7 +15,7 @@ running = ""
 queue_lock = threading.Lock()
 shutdown_flag = threading.Event()
 
-log_filename = f"scheduler_log.txt"
+
 log_file = None
 log_lock = threading.Lock()
 
@@ -45,7 +45,7 @@ def scheduler():
         if current:
             if current == "END":
                 log_message("[SCHEDULER] Received END signal, shutting down...")
-                print("\n[SCHEDULER] Received END signal, shutting down...")
+                print("\n[SCHEDULER] Received END signal, shutting down... \n>", end="")
                 shutdown_flag.set()
                 break
             
@@ -120,48 +120,14 @@ def shell():
             shutdown_flag.set()
             break
 
-def receiver(client_socket):
-    """Continuously receive messages from the server."""
-    global shutdown_flag
+
     
-    while not shutdown_flag.is_set():
-        try:
-            message = client_socket.recv(1024).decode('utf-8')
-            
-            if not message:
-                log_message("[RECEIVER] Server closed the connection")
-                print("\n[RECEIVER] Server closed the connection.")
-                shutdown_flag.set()
-                break
-            
-            # Handle multiple messages in one packet
-            with queue_lock:
-                process_queue.append(message)
-                if message == "END":
-                    log_message("[RECEIVER] Received END message")
-                    print("\n[RECEIVER] Received END message")
-                    break
-                else:
-                    log_message("[RECEIVER] Added to queue: {msg}")
-                    #print(f"\n[RECEIVED] Added to queue: {msg}")
-                    pass
-            
-        except ConnectionResetError:
-            print("\n[RECEIVER] Connection was reset by the server.")
-            log_message(f"[RECEIVER] Connection was reset by the server.")
-            shutdown_flag.set()
-            break
-        except Exception as e:
-            if not shutdown_flag.is_set():
-                error_msg = f"[RECEIVER] Error: {e}"
-                log_message(error_msg)
-            break
-        
-        time.sleep(0.1)
 
 def main():
     # Log implementation
     global log_file
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    log_filename = f"scheduler_log_{timestamp}.txt"
     try:
         log_file = open(log_filename, 'w')
         log_message(f"[SYSTEM] Scheduler started - Log file: {log_filename}")
@@ -183,13 +149,47 @@ def main():
         exit(1)
 
     print("Connected to the server")
-    receiver_thread = threading.Thread(target=receiver, args=(client_socket,), daemon=True)
-    receiver_thread.start()
 
     scheduler_thread = threading.Thread(target=scheduler)
     shell_thread = threading.Thread(target=shell)
     scheduler_thread.start()
     shell_thread.start()
+    
+    global shutdown_flag
+    
+    while not shutdown_flag.is_set():
+        try:
+            message = client_socket.recv(1024).decode('utf-8')
+            
+            if not message:
+                log_message("[RECEIVER] Server closed the connection")
+                print("\n[RECEIVER] Server closed the connection.")
+                shutdown_flag.set()
+                break
+            
+            # Handle multiple messages in one packet
+            with queue_lock:
+                process_queue.append(message)
+                if message == "END":
+                    log_message("[RECEIVER] Received END message")
+                    #print("\n[RECEIVER] Received END message")
+                    break
+                else:
+                    log_message(f"[RECEIVER] Recieved Process Info: {message}")
+                    pass
+            
+        except ConnectionResetError:
+            print("\n[RECEIVER] Connection was reset by the server.")
+            log_message(f"[RECEIVER] Connection was reset by the server.")
+            shutdown_flag.set()
+            break
+        except Exception as e:
+            if not shutdown_flag.is_set():
+                error_msg = f"[RECEIVER] Error: {e}"
+                log_message(error_msg)
+            break
+        
+        time.sleep(0.1)
 
     # Wait for threads to complete
     shell_thread.join()
