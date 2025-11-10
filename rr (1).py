@@ -7,103 +7,102 @@ from datetime import datetime
 SERVER_IP = "127.0.0.1"
 SERVER_PORT = 12345
 
-TIME_QUANTUM = 1  # Time quantum for round robin scheduling
-
 pause_flag = threading.Event()
-pause_flag.set()  # Set means NOT paused (running)
+pause_flag.set()
 
 process_queue = []
 running = ""
 queue_lock = threading.Lock()
 shutdown_flag = threading.Event()
 
-
 log_file = None
 log_lock = threading.Lock()
+
+TIME_QUANTUM = 2  
+
 
 def log_message(message):
     global log_file
     with log_lock:
         log_entry = f"{message}\n"
         log_file.write(log_entry)
-        log_file.flush()  
+        log_file.flush()
+
+
+def _sleep_exact(seconds):
+    time.sleep(seconds)
+
 
 def scheduler():
     global running
     global process_queue
     global queue_lock
-    
+
     while not shutdown_flag.is_set():
         pause_flag.wait()
-        
+
         current = None
-        
-        # Get next process from queue (release lock quickly)
+
         with queue_lock:
             if len(process_queue) > 0:
                 current = process_queue.pop(0)
-        
-        # Process outside the lock so receiver can continue adding tasks
+
         if current:
             if current == "END":
                 log_message("[SCHEDULER] Received END signal, shutting down...")
                 print("\n[SCHEDULER] Received END signal, shutting down... \n>", end="")
                 shutdown_flag.set()
                 break
-            
+
             try:
-                # Handle both string format (from receiver) and tuple format (from queue)
-                if isinstance(current, tuple):
-                    pid, remaining_time = current
-                else:
-                    pid, wait = current.strip().split()
-                    remaining_time = int(wait)
-
-                # Update running state with lock
+                parts = current.strip().split()
+                if len(parts) != 2:
+                    raise ValueError("Expected 'pid burst'")
+                pid, remaining = parts[0], int(parts[1])
+                slice_time = min(TIME_QUANTUM, remaining)
                 with queue_lock:
-                    running = f"{pid} : with burst time {remaining_time}"
+                    running = f"{pid} : with burst time {remaining}"
 
-                log_message(f"[RUNNING] Process {pid} started with remaining burst time {remaining_time}")
+                log_message(f"[RUNNING] Process {pid} started with remaining burst time {remaining}")
 
-                # Process for time quantum or remaining time, whichever is smaller
-                execution_time = min(TIME_QUANTUM, remaining_time)
-                time.sleep(execution_time)
-                
-                remaining_time -= execution_time
+                _sleep_exact(slice_time)
 
-                if remaining_time > 0:
-                    # Process not finished, put it back in the queue
-                    log_message(f"[PREEMPTED] Process {pid} preempted, {remaining_time} seconds remaining")
+                remaining_after = remaining - slice_time
+
+                if remaining_after > 0:
+                    log_message(
+                        f"[PREEMPTED] Process {pid} preempted, {remaining_after} seconds remaining"
+                    )
                     with queue_lock:
-                        process_queue.append((pid, remaining_time))
+                        process_queue.append(f"{pid} {remaining_after}")
                 else:
-                    # Process completed
-                    log_message(f"[COMPLETED] Process {pid} finished")
+                    log_message(
+                        f"[COMPLETED] Process {pid} finished after total burst {remaining}s"
+                    )
 
-                # Clear running state with lock
                 with queue_lock:
                     running = ""
-                
+
             except (ValueError, IndexError) as e:
                 print(f"\n[ERROR] Invalid process format: {current} - {e}")
                 error_msg = f"[ERROR] Invalid process format: {current} - {e}"
                 log_message(error_msg)
         else:
-            # No tasks in queue, sleep briefly to avoid busy-waiting
             time.sleep(0.1)
+
 
 def shell():
     global process_queue
     global queue_lock
     global running
     global shutdown_flag
-    
+
     print("\nCommands: 'list' (show queue), 'pause', 'continue', 'exit' (quit)")
-    
+
     while True:
         try:
             s = input("> ")
-            
+
             if s == "exit":
                 shutdown_flag.set()
                 print("Shutting down...")
@@ -119,7 +118,7 @@ def shell():
                     print("Scheduler PAUSED")
                     log_message("[SHELL] Scheduler paused by user.")
                 else:
-                    print("Scheduler is already paused")                   
+                    print("Scheduler is already paused")
             elif s == "continue":
                 if not pause_flag.is_set():
                     pause_flag.set()
@@ -128,20 +127,16 @@ def shell():
                 else:
                     print("Scheduler is already running")
             elif s == "":
-                pass  # Ignore empty input
+                pass
             else:
                 print(f"Unknown command: {s}")
-                
+
         except EOFError:
-            # Handle Ctrl+D or input stream closing
             shutdown_flag.set()
             break
 
 
-    
-
 def main():
-    # Log implementation
     global log_file
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     log_filename = f"scheduler_log_{timestamp}.txt"
@@ -151,7 +146,7 @@ def main():
         print(f"Logging to: {log_filename}")
     except Exception as e:
         print(f"Error creating log file: {e}")
-        exit(1)   
+        exit(1)
 
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -171,30 +166,26 @@ def main():
     shell_thread = threading.Thread(target=shell)
     scheduler_thread.start()
     shell_thread.start()
-    
+
     global shutdown_flag
-    
+
     while not shutdown_flag.is_set():
         try:
             message = client_socket.recv(1024).decode('utf-8')
-            
+
             if not message:
                 log_message("[RECEIVER] Server closed the connection")
                 print("\n[RECEIVER] Server closed the connection.")
                 shutdown_flag.set()
                 break
-            
-            # Handle multiple messages in one packet
             with queue_lock:
                 process_queue.append(message)
                 if message == "END":
                     log_message("[RECEIVER] Received END message")
-                    #print("\n[RECEIVER] Received END message")
                     break
                 else:
                     log_message(f"[RECEIVER] Recieved Process Info: {message}")
-                    pass
-            
+
         except ConnectionResetError:
             print("\n[RECEIVER] Connection was reset by the server.")
             log_message(f"[RECEIVER] Connection was reset by the server.")
@@ -205,18 +196,17 @@ def main():
                 error_msg = f"[RECEIVER] Error: {e}"
                 log_message(error_msg)
             break
-        
+
         time.sleep(0.1)
 
-    # Wait for threads to complete
     shell_thread.join()
     scheduler_thread.join()
-    
-    # Cleanup
+
     client_socket.close()
     log_message("[SYSTEM] Scheduler shutdown complete")
     log_file.close()
     print(f"\nLog saved to: {log_filename}")
+
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,29 @@
+[SYSTEM] Scheduler started - Log file: scheduler_log_20251110_172657.txt
+[SYSTEM] Connected to server at 127.0.0.1:12345
+[RECEIVER] Recieved Process Info: 1 2 
+[RUNNING] Process 1 started with remaining burst time 2
+[COMPLETED] Process 1 finished after total burst 2s
+[RECEIVER] Recieved Process Info: 2 1 
+[RUNNING] Process 2 started with remaining burst time 1
+[COMPLETED] Process 2 finished after total burst 1s
+[RECEIVER] Recieved Process Info: 3 4 
+[RUNNING] Process 3 started with remaining burst time 4
+[PREEMPTED] Process 3 preempted, 2 seconds remaining
+[RUNNING] Process 3 started with remaining burst time 2
+[COMPLETED] Process 3 finished after total burst 2s
+[RECEIVER] Recieved Process Info: 4 3 
+[RUNNING] Process 4 started with remaining burst time 3
+[PREEMPTED] Process 4 preempted, 1 seconds remaining
+[RUNNING] Process 4 started with remaining burst time 1
+[COMPLETED] Process 4 finished after total burst 1s
+[RECEIVER] Recieved Process Info: 5 1 
+[RUNNING] Process 5 started with remaining burst time 1
+[COMPLETED] Process 5 finished after total burst 1s
+[RECEIVER] Recieved Process Info: 6 1 
+[RUNNING] Process 6 started with remaining burst time 1
+[COMPLETED] Process 6 finished after total burst 1s
+[RECEIVER] Recieved Process Info: 7 1 
+[RUNNING] Process 7 started with remaining burst time 1
+[COMPLETED] Process 7 finished after total burst 1s
+[RECEIVER] Received END message
+[SCHEDULER] Received END signal, shutting down...

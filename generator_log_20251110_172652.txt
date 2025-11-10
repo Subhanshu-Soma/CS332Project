@@ -1,0 +1,7 @@
+Sent process info: PID=1 Burst Time=2
+Sent process info: PID=2 Burst Time=1
+Sent process info: PID=3 Burst Time=4
+Sent process info: PID=4 Burst Time=3
+Sent process info: PID=5 Burst Time=1
+Sent process info: PID=6 Burst Time=1
+Sent process info: PID=7 Burst Time=1
