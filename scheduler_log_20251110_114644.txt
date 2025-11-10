@@ -43,3 +43,115 @@
 [RUNNING] Process 3 started with remaining burst time 4
 [PREEMPTED] Process 3 preempted, 3 seconds remaining
 [RUNNING] Process 4 started with remaining burst time 5
+[PREEMPTED] Process 4 preempted, 4 seconds remaining
+[RUNNING] Process 3 started with remaining burst time 3
+[PREEMPTED] Process 3 preempted, 2 seconds remaining
+[RUNNING] Process 4 started with remaining burst time 4
+[RECEIVER] Recieved Process Info: 5 1 
+[RECEIVER] Recieved Process Info: 6 1 
+[PREEMPTED] Process 4 preempted, 3 seconds remaining
+[RUNNING] Process 3 started with remaining burst time 2
+[PREEMPTED] Process 3 preempted, 1 seconds remaining
+[RUNNING] Process 5 started with remaining burst time 1
+[COMPLETED] Process 5 finished
+[RUNNING] Process 6 started with remaining burst time 1
+[COMPLETED] Process 6 finished
+[RUNNING] Process 4 started with remaining burst time 3
+[PREEMPTED] Process 4 preempted, 2 seconds remaining
+[RUNNING] Process 3 started with remaining burst time 1
+[COMPLETED] Process 3 finished
+[RUNNING] Process 4 started with remaining burst time 2
+[PREEMPTED] Process 4 preempted, 1 seconds remaining
+[RUNNING] Process 4 started with remaining burst time 1
+[COMPLETED] Process 4 finished
+[RECEIVER] Recieved Process Info: 7 2 
+[RUNNING] Process 7 started with remaining burst time 2
+[PREEMPTED] Process 7 preempted, 1 seconds remaining
+[RUNNING] Process 7 started with remaining burst time 1
+[RECEIVER] Recieved Process Info: 8 31 
+[COMPLETED] Process 7 finished
+[RUNNING] Process 8 started with remaining burst time 31
+[PREEMPTED] Process 8 preempted, 30 seconds remaining
+[RUNNING] Process 8 started with remaining burst time 30
+[RECEIVER] Recieved Process Info: 9 7 
+[PREEMPTED] Process 8 preempted, 29 seconds remaining
+[RUNNING] Process 9 started with remaining burst time 7
+[RECEIVER] Recieved Process Info: 10 1 
+[PREEMPTED] Process 9 preempted, 6 seconds remaining
+[RUNNING] Process 8 started with remaining burst time 29
+[RECEIVER] Recieved Process Info: 11 2 
+[PREEMPTED] Process 8 preempted, 28 seconds remaining
+[RUNNING] Process 10 started with remaining burst time 1
+[COMPLETED] Process 10 finished
+[RUNNING] Process 9 started with remaining burst time 6
+[PREEMPTED] Process 9 preempted, 5 seconds remaining
+[RUNNING] Process 11 started with remaining burst time 2
+[PREEMPTED] Process 11 preempted, 1 seconds remaining
+[RUNNING] Process 8 started with remaining burst time 28
+[PREEMPTED] Process 8 preempted, 27 seconds remaining
+[RUNNING] Process 9 started with remaining burst time 5
+[PREEMPTED] Process 9 preempted, 4 seconds remaining
+[RUNNING] Process 11 started with remaining burst time 1
+[COMPLETED] Process 11 finished
+[RUNNING] Process 8 started with remaining burst time 27
+[PREEMPTED] Process 8 preempted, 26 seconds remaining
+[RUNNING] Process 9 started with remaining burst time 4
+[PREEMPTED] Process 9 preempted, 3 seconds remaining
+[RUNNING] Process 8 started with remaining burst time 26
+[PREEMPTED] Process 8 preempted, 25 seconds remaining
+[RUNNING] Process 9 started with remaining burst time 3
+[PREEMPTED] Process 9 preempted, 2 seconds remaining
+[RUNNING] Process 8 started with remaining burst time 25
+[RECEIVER] Recieved Process Info: 12 13 
+[PREEMPTED] Process 8 preempted, 24 seconds remaining
+[RUNNING] Process 9 started with remaining burst time 2
+[PREEMPTED] Process 9 preempted, 1 seconds remaining
+[RUNNING] Process 12 started with remaining burst time 13
+[PREEMPTED] Process 12 preempted, 12 seconds remaining
+[RUNNING] Process 8 started with remaining burst time 24
+[RECEIVER] Recieved Process Info: 13 1 
+[PREEMPTED] Process 8 preempted, 23 seconds remaining
+[RUNNING] Process 9 started with remaining burst time 1
+[COMPLETED] Process 9 finished
+[RUNNING] Process 12 started with remaining burst time 12
+[PREEMPTED] Process 12 preempted, 11 seconds remaining
+[RUNNING] Process 13 started with remaining burst time 1
+[COMPLETED] Process 13 finished
+[RUNNING] Process 8 started with remaining burst time 23
+[PREEMPTED] Process 8 preempted, 22 seconds remaining
+[RUNNING] Process 12 started with remaining burst time 11
+[PREEMPTED] Process 12 preempted, 10 seconds remaining
+[RUNNING] Process 8 started with remaining burst time 22
+[PREEMPTED] Process 8 preempted, 21 seconds remaining
+[RUNNING] Process 12 started with remaining burst time 10
+[PREEMPTED] Process 12 preempted, 9 seconds remaining
+[RUNNING] Process 8 started with remaining burst time 21
+[PREEMPTED] Process 8 preempted, 20 seconds remaining
+[RUNNING] Process 12 started with remaining burst time 9
+[PREEMPTED] Process 12 preempted, 8 seconds remaining
+[RUNNING] Process 8 started with remaining burst time 20
+[PREEMPTED] Process 8 preempted, 19 seconds remaining
+[RUNNING] Process 12 started with remaining burst time 8
+[PREEMPTED] Process 12 preempted, 7 seconds remaining
+[RUNNING] Process 8 started with remaining burst time 19
+[PREEMPTED] Process 8 preempted, 18 seconds remaining
+[RUNNING] Process 12 started with remaining burst time 7
+[PREEMPTED] Process 12 preempted, 6 seconds remaining
+[RUNNING] Process 8 started with remaining burst time 18
+[PREEMPTED] Process 8 preempted, 17 seconds remaining
+[RUNNING] Process 12 started with remaining burst time 6
+[PREEMPTED] Process 12 preempted, 5 seconds remaining
+[RUNNING] Process 8 started with remaining burst time 17
+[PREEMPTED] Process 8 preempted, 16 seconds remaining
+[RUNNING] Process 12 started with remaining burst time 5
+[PREEMPTED] Process 12 preempted, 4 seconds remaining
+[RUNNING] Process 8 started with remaining burst time 16
+[PREEMPTED] Process 8 preempted, 15 seconds remaining
+[RUNNING] Process 12 started with remaining burst time 4
+[PREEMPTED] Process 12 preempted, 3 seconds remaining
+[RUNNING] Process 8 started with remaining burst time 15
+[RECEIVER] Received END message
+[PREEMPTED] Process 8 preempted, 14 seconds remaining
+[RUNNING] Process 12 started with remaining burst time 3
+[PREEMPTED] Process 12 preempted, 2 seconds remaining
+[SCHEDULER] Received END signal, shutting down...
