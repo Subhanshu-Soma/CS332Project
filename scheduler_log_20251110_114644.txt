@@ -1,0 +1,45 @@
+[SYSTEM] Scheduler started - Log file: scheduler_log_20251110_114644.txt
+[SYSTEM] Connected to server at 127.0.0.1:12345
+[RECEIVER] Recieved Process Info: 1 1 
+[RUNNING] Process 1 started with remaining burst time 1
+[COMPLETED] Process 1 finished
+[RECEIVER] Recieved Process Info: 2 11 
+[RUNNING] Process 2 started with remaining burst time 11
+[PREEMPTED] Process 2 preempted, 10 seconds remaining
+[RUNNING] Process 2 started with remaining burst time 10
+[PREEMPTED] Process 2 preempted, 9 seconds remaining
+[RUNNING] Process 2 started with remaining burst time 9
+[PREEMPTED] Process 2 preempted, 8 seconds remaining
+[RUNNING] Process 2 started with remaining burst time 8
+[PREEMPTED] Process 2 preempted, 7 seconds remaining
+[RUNNING] Process 2 started with remaining burst time 7
+[PREEMPTED] Process 2 preempted, 6 seconds remaining
+[RUNNING] Process 2 started with remaining burst time 6
+[PREEMPTED] Process 2 preempted, 5 seconds remaining
+[RUNNING] Process 2 started with remaining burst time 5
+[PREEMPTED] Process 2 preempted, 4 seconds remaining
+[RUNNING] Process 2 started with remaining burst time 4
+[PREEMPTED] Process 2 preempted, 3 seconds remaining
+[RUNNING] Process 2 started with remaining burst time 3
+[PREEMPTED] Process 2 preempted, 2 seconds remaining
+[RUNNING] Process 2 started with remaining burst time 2
+[PREEMPTED] Process 2 preempted, 1 seconds remaining
+[RUNNING] Process 2 started with remaining burst time 1
+[COMPLETED] Process 2 finished
+[RECEIVER] Recieved Process Info: 3 9 
+[RUNNING] Process 3 started with remaining burst time 9
+[PREEMPTED] Process 3 preempted, 8 seconds remaining
+[RUNNING] Process 3 started with remaining burst time 8
+[PREEMPTED] Process 3 preempted, 7 seconds remaining
+[RUNNING] Process 3 started with remaining burst time 7
+[PREEMPTED] Process 3 preempted, 6 seconds remaining
+[RUNNING] Process 3 started with remaining burst time 6
+[PREEMPTED] Process 3 preempted, 5 seconds remaining
+[RUNNING] Process 3 started with remaining burst time 5
+[RECEIVER] Recieved Process Info: 4 6 
+[PREEMPTED] Process 3 preempted, 4 seconds remaining
+[RUNNING] Process 4 started with remaining burst time 6
+[PREEMPTED] Process 4 preempted, 5 seconds remaining
+[RUNNING] Process 3 started with remaining burst time 4
+[PREEMPTED] Process 3 preempted, 3 seconds remaining
+[RUNNING] Process 4 started with remaining burst time 5
