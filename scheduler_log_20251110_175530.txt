@@ -1,0 +1,37 @@
+[SYSTEM] Scheduler started - Log file: scheduler_log_20251110_175530.txt
+[SYSTEM] Connected to server at 127.0.0.1:12345
+[RECEIVER] Recieved Process Info: 1 1 
+[RUNNING] Process 1 started with remaining burst time 1
+[COMPLETED] Process 1 finished after total burst 1s
+[RECEIVER] Recieved Process Info: 2 6 
+[RUNNING] Process 2 started with remaining burst time 6
+[PREEMPTED] Process 2 preempted, 4 seconds remaining
+[RUNNING] Process 2 started with remaining burst time 4
+[PREEMPTED] Process 2 preempted, 2 seconds remaining
+[RUNNING] Process 2 started with remaining burst time 2
+[COMPLETED] Process 2 finished after total burst 2s
+[RECEIVER] Recieved Process Info: 3 12 
+[RUNNING] Process 3 started with remaining burst time 12
+[PREEMPTED] Process 3 preempted, 10 seconds remaining
+[RUNNING] Process 3 started with remaining burst time 10
+[PREEMPTED] Process 3 preempted, 8 seconds remaining
+[RUNNING] Process 3 started with remaining burst time 8
+[PREEMPTED] Process 3 preempted, 6 seconds remaining
+[RUNNING] Process 3 started with remaining burst time 6
+[PREEMPTED] Process 3 preempted, 4 seconds remaining
+[RUNNING] Process 3 started with remaining burst time 4
+[PREEMPTED] Process 3 preempted, 2 seconds remaining
+[RUNNING] Process 3 started with remaining burst time 2
+[COMPLETED] Process 3 finished after total burst 2s
+[RECEIVER] Recieved Process Info: 4 1 
+[RUNNING] Process 4 started with remaining burst time 1
+[COMPLETED] Process 4 finished after total burst 1s
+[RECEIVER] Recieved Process Info: 5 6 
+[RUNNING] Process 5 started with remaining burst time 6
+[PREEMPTED] Process 5 preempted, 4 seconds remaining
+[RUNNING] Process 5 started with remaining burst time 4
+[PREEMPTED] Process 5 preempted, 2 seconds remaining
+[RUNNING] Process 5 started with remaining burst time 2
+[COMPLETED] Process 5 finished after total burst 2s
+[RECEIVER] Received END message
+[SCHEDULER] Received END signal, shutting down...
