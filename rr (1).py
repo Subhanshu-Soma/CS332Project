@@ -20,7 +20,6 @@ log_lock = threading.Lock()
 
 TIME_QUANTUM = 2  
 
-
 def log_message(message):
     global log_file
     with log_lock:
@@ -49,10 +48,17 @@ def scheduler():
 
         if current:
             if current == "END":
-                log_message("[SCHEDULER] Received END signal, shutting down...")
-                print("\n[SCHEDULER] Received END signal, shutting down... \n>", end="")
-                shutdown_flag.set()
-                break
+                # Only shut down if queue is empty, otherwise re-queue END and continue processing
+                with queue_lock:
+                    if len(process_queue) == 0:
+                        log_message("[SCHEDULER] Received END signal, shutting down...")
+                        print("\n[SCHEDULER] Received END signal, shutting down... \n>", end="")
+                        shutdown_flag.set()
+                        break
+                    else:
+                        # END received but queue not empty, put END back at end and continue processing
+                        process_queue.append("END")
+                        continue
 
             try:
                 parts = current.strip().split()
@@ -63,7 +69,7 @@ def scheduler():
                 with queue_lock:
                     running = f"{pid} : with burst time {remaining}"
 
-                log_message(f"[RUNNING] Process {pid} started with remaining burst time {remaining}")
+                log_message(f"Process {pid} started with remaining time: {remaining}s")
 
                 _sleep_exact(slice_time)
 
@@ -71,13 +77,15 @@ def scheduler():
 
                 if remaining_after > 0:
                     log_message(
-                        f"[PREEMPTED] Process {pid} preempted, {remaining_after} seconds remaining"
+                        f"Process {pid} exceeded time quantum (2s) and will be requeued with remaining time: {remaining_after}s"
                     )
                     with queue_lock:
                         process_queue.append(f"{pid} {remaining_after}")
                 else:
+                    # Calculate total burst time (original remaining was the last slice)
+                    total_burst = remaining
                     log_message(
-                        f"[COMPLETED] Process {pid} finished after total burst {remaining}s"
+                        f"Process {pid} completed in burst time: {total_burst}s"
                     )
 
                 with queue_lock:
@@ -184,7 +192,15 @@ def main():
                     log_message("[RECEIVER] Received END message")
                     break
                 else:
-                    log_message(f"[RECEIVER] Recieved Process Info: {message}")
+                    # Log in the format: "Received process info: PID=<ID>, Burst Time=<time>s"
+                    try:
+                        parts = message.strip().split()
+                        if len(parts) == 2:
+                            pid = parts[0]
+                            burst_time = parts[1]
+                            log_message(f"Received process info: PID={pid}, Burst Time={burst_time}s")
+                    except:
+                        log_message(f"[RECEIVER] Recieved Process Info: {message}")
 
         except ConnectionResetError:
             print("\n[RECEIVER] Connection was reset by the server.")
