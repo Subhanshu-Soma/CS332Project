@@ -1,0 +1,53 @@
+[SYSTEM] Scheduler started - Log file: scheduler_log_20251110_215742.txt
+[SYSTEM] Connected to server at 127.0.0.1:12345
+Received process info: PID=1, Burst Time=1s
+Process 1 started with remaining time: 1s
+Process 1 completed in burst time: 1s
+Received process info: PID=2, Burst Time=2s
+Process 2 started with remaining time: 2s
+Process 2 completed in burst time: 2s
+Received process info: PID=3, Burst Time=12s
+Process 3 started with remaining time: 12s
+Received process info: PID=4, Burst Time=1s
+Process 3 exceeded time quantum (2s) and will be requeued with remaining time: 10s
+Process 4 started with remaining time: 1s
+Process 4 completed in burst time: 1s
+Process 3 started with remaining time: 10s
+Received process info: PID=5, Burst Time=5s
+Process 3 exceeded time quantum (2s) and will be requeued with remaining time: 8s
+Process 5 started with remaining time: 5s
+Process 5 exceeded time quantum (2s) and will be requeued with remaining time: 3s
+Process 3 started with remaining time: 8s
+Process 3 exceeded time quantum (2s) and will be requeued with remaining time: 6s
+Process 5 started with remaining time: 3s
+Process 5 exceeded time quantum (2s) and will be requeued with remaining time: 1s
+Process 3 started with remaining time: 6s
+Process 3 exceeded time quantum (2s) and will be requeued with remaining time: 4s
+Process 5 started with remaining time: 1s
+Process 5 completed in burst time: 1s
+Process 3 started with remaining time: 4s
+Received process info: PID=6, Burst Time=4s
+Process 3 exceeded time quantum (2s) and will be requeued with remaining time: 2s
+Process 6 started with remaining time: 4s
+Process 6 exceeded time quantum (2s) and will be requeued with remaining time: 2s
+Process 3 started with remaining time: 2s
+Process 3 completed in burst time: 2s
+Process 6 started with remaining time: 2s
+Received process info: PID=7, Burst Time=5s
+Process 6 completed in burst time: 2s
+Process 7 started with remaining time: 5s
+Process 7 exceeded time quantum (2s) and will be requeued with remaining time: 3s
+Process 7 started with remaining time: 3s
+Process 7 exceeded time quantum (2s) and will be requeued with remaining time: 1s
+Process 7 started with remaining time: 1s
+Process 7 completed in burst time: 1s
+Received process info: PID=8, Burst Time=1s
+Process 8 started with remaining time: 1s
+Process 8 completed in burst time: 1s
+Received process info: PID=9, Burst Time=3s
+Process 9 started with remaining time: 3s
+Process 9 exceeded time quantum (2s) and will be requeued with remaining time: 1s
+Process 9 started with remaining time: 1s
+Process 9 completed in burst time: 1s
+[RECEIVER] Received END message
+[SCHEDULER] Received END signal, shutting down...
